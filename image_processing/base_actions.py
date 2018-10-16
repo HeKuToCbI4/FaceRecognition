@@ -55,7 +55,6 @@ def resize_image(image: np.array, target_size: tuple) -> np.array:
 
 
 def crop_image_part(source_image: np.array, crop_from_to: tuple) -> np.array:
-    from copy import deepcopy
     """
     Function that crops image from start point to end point
     :param source_image: numpy array representation of source image
@@ -63,6 +62,7 @@ def crop_image_part(source_image: np.array, crop_from_to: tuple) -> np.array:
     (10, 10, 20, 20) means crop from point (10,10) to (20,20)
     :return: numpy array representation of image fragment, None in case of errors.
     """
+    from copy import deepcopy
     try:
         # noinspection PyTupleAssignmentBalance
         # assuming we have enough values in statement.
