@@ -2,6 +2,7 @@ import numpy as np
 import scipy.ndimage
 import scipy.misc
 import skimage.transform
+import cv2
 
 from utils.logger import Logger
 
@@ -17,7 +18,7 @@ def open_image(filename: str, greyscale: bool = False) -> np.array:
     :return: numpy array representation of image
     """
     try:
-        return scipy.ndimage.imread(filename, greyscale)
+        return cv2.imread(filename, not greyscale)
     except FileNotFoundError as e:
         base_actions_logger.log_string(f'Failed to open image: {filename} due to {e}')
         return None
@@ -73,7 +74,11 @@ def crop_image_part(source_image: np.array, crop_from_to: tuple) -> np.array:
         return None
 
 
+def normalize_image():
+    pass
+
 if __name__ == '__main__':
-    lenovo = open_image('test.jpg')
-    cropped_lenovo = crop_image_part(lenovo, (120, 120, 240, 240))
-    save_image(cropped_lenovo, 'crop_test.jpg')
+    # lenovo = open_image('test.jpg')
+    # cropped_lenovo = crop_image_part(lenovo, (120, 120, 240, 240))
+    # save_image(cropped_lenovo, 'crop_test.jpg')
+    print(cv2.imread('test.jpg'))
