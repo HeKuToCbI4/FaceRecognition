@@ -1,8 +1,8 @@
-import numpy as np
-import scipy.ndimage
-import scipy.misc
-import skimage.transform
 import cv2
+import numpy as np
+import scipy.misc
+import scipy.ndimage
+import skimage.transform
 
 from utils.logger import Logger
 
@@ -74,8 +74,22 @@ def crop_image_part(source_image: np.array, crop_from_to: tuple) -> np.array:
         return None
 
 
+def draw_rectangle(image: np.array, coordinates: tuple, color: tuple = (0, 0, 0)) -> np.array:
+    """
+    Returns image with rectangle drawn on it, rectangle thickness is set to 2 px.
+    :param image: source image of type np.array
+    :param coordinates: x start, y start, x end, y end tuple.
+    :param color: tuple representing desired color.
+    :return: image with drawn rectangle on it.
+    """
+    x_start, y_start, x_end, y_end = coordinates
+    return cv2.rectangle(image, (x_start, y_start), (x_end, y_end), color, 2)
+
+
+###TODO: Implement it.
 def normalize_image():
     pass
+
 
 if __name__ == '__main__':
     # lenovo = open_image('test.jpg')
