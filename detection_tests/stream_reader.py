@@ -29,5 +29,5 @@ if __name__ == '__main__':
     except BaseException as e:
         print(f'Error {e} occurred.')
     finally:
-        vh.__del__()
         cv2.destroyAllWindows()
+        vh.__del__()
