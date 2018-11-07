@@ -1,10 +1,11 @@
-from utils.video_handler import VideoHandler
-import cv2
-import numpy as np
-from haar_cascades.haar_classifier import HaarClassifier
 import os
-from limits import CWD
+
+import cv2
+
+from haar_cascades.haar_classifier import HaarClassifier
 from image_processing.base_actions import draw_rectangle
+from limits import CWD
+from utils.video_handler import VideoHandler
 
 if __name__ == '__main__':
     try:

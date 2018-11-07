@@ -1,10 +1,9 @@
-import numpy as np
-import os
-from limits import CWD
-import scipy.io
-import time
 import json
-import csv
+import os
+
+import scipy.io
+
+from limits import CWD
 
 if __name__ == '__main__':
     data = []
