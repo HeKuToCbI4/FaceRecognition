@@ -95,4 +95,11 @@ if __name__ == '__main__':
     # lenovo = open_image('test.jpg')
     # cropped_lenovo = crop_image_part(lenovo, (120, 120, 240, 240))
     # save_image(cropped_lenovo, 'crop_test.jpg')
-    print(cv2.imread('test.jpg'))
+    # print(cv2.imread('test.jpg'))
+    from limits import CWD
+    import os
+    file = open_image(os.path.join(CWD, 'wiki', '69', '31815569_1972-01-06_2013.jpg'), True)
+    # 87 198 174 284
+    # 2 0 3 1
+    res_img = draw_rectangle(file, (28, 220, 274, 466))
+    save_image(res_img, 'test.jpg')
