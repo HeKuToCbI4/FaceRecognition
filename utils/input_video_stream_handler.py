@@ -1,13 +1,16 @@
-import cv2
-import numpy as np
-from utils.logger import Logger
 import queue
+import time
 from multiprocessing import Event
 from threading import Thread
 
+import cv2
 
-class VideoHandler:
-    def __init__(self, name: str = 'BaseVideoHandler', video_source_device: int = None, video_source_file: str = None):
+from utils.logger import Logger
+
+
+class InputVideoHandler:
+    def __init__(self, name: str = 'BaseInputVideoHandler', video_source_device: int = None,
+                 video_source_file: str = None):
         """
         Creates object to handle video file/direct frames input from camera. If neither device/camera
         specified raises error.
@@ -38,7 +41,9 @@ class VideoHandler:
             self.capture_event.wait()
             while self.capture_event.is_set():
                 read_result = self.capture.read()
-                self.frame_queue.put_nowait(read_result)
+                ret, frame = read_result
+                if ret:
+                    self.frame_queue.put_nowait((time.time, frame))
 
     def start_capture(self):
         """
@@ -61,9 +66,7 @@ class VideoHandler:
         Get next frame from frame_queue.
         :return: tuple of reference time and frame itself, if queue is not empty, None if there is no frames.
         """
-        if not self.frame_queue.empty():
-            return self.frame_queue.get_nowait()
-        return None
+        return self.frame_queue.get(timeout=1)
 
     def get_current_state(self) -> bool:
         self.logger.log_string(f'Current state of {self.name}: capture event {self.capture_event.is_set()}, '
