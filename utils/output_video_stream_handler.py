@@ -61,7 +61,7 @@ class OutputVideoHandler:
                 writer.writerow([processing_time])
                 if processing_time > self.timeout_on_frame and self.realtime_processing:
                     continue
-                self.output_queue.put_nowait((ret, frame))
+                self.output_queue.put_nowait((start_time, frame))
 
     def start_processing_frames(self):
         self.process_frames_event.set()

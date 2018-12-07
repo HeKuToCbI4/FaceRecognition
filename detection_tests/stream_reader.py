@@ -24,7 +24,7 @@ if __name__ == '__main__':
             os.path.join(CWD, 'opencv_defaults', 'haarcascades', 'haarcascade_frontalface_default.xml'))
         vh = InputVideoHandler('Test VideoHandler', video_source_device=0)
         ovh = OutputVideoHandler(input_frame_queue=vh.frame_queue, frame_processing_function=process_frame,
-                                 threads_count=2)
+                                 threads_count=1)
         print('Setting event for capture.')
         vh.start_capture()
         print('Event set.')
