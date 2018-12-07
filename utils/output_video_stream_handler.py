@@ -4,6 +4,8 @@ import time
 from multiprocessing import cpu_count
 from threading import Thread, Event
 
+import numpy as np
+
 from utils.logger import Logger
 
 initialization_failure = 'Failed to initialize {what} because {failure_reason}.'
@@ -40,14 +42,14 @@ class OutputVideoHandler:
             t.daemon = True
             t.start()
 
-    def _process_frame(self, thread_id):
+    def _process_frame(self, thread_id: int):
         logger = Logger(f'{self.name} thread {thread_id}')
         statistics = open(f'proc_time_thread{thread_id}.txt', 'w+', newline='')
         writer = csv.writer(statistics)
         while True:
             self.process_frames_event.wait()
             try:
-                next_frame = self.input_queue.get(block=False, timeout=1)
+                next_frame = self.input_queue.get(block=True, timeout=1)
             except queue.Empty:
                 logger.log_string('Warning: failed to get frame from input queue within 1 second.')
                 next_frame = None
@@ -58,7 +60,7 @@ class OutputVideoHandler:
                     frame = self.frame_processing_function(frame)
                 # Avoid putting outdated frames. ###TODO: Improve condition
                 processing_time = time.time() - start_time
-                writer.writerow([processing_time])
+                # writer.writerow([processing_time])
                 if processing_time > self.timeout_on_frame and self.realtime_processing:
                     continue
                 self.output_queue.put_nowait((start_time, frame))
@@ -69,5 +71,5 @@ class OutputVideoHandler:
     def stop_processing_frames(self):
         self.process_frames_event.clear()
 
-    def get_next_frame(self):
-        return self.output_queue.get(timeout=60)
+    def get_next_frame(self)->(bool, np.array):
+        return self.output_queue.get(timeout=3)

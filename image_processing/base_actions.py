@@ -83,7 +83,7 @@ def draw_rectangle(image: np.array, coordinates: tuple, color: tuple = (0, 0, 0)
     :return: image with drawn rectangle on it.
     """
     x_start, y_start, x_end, y_end = coordinates
-    return cv2.rectangle(image, (x_start, y_start), (x_end, y_end), color, 2)
+    return cv2.rectangle(image, (x_start, y_start), (x_end, y_end), color, 6)
 
 
 ###TODO: Implement it.
