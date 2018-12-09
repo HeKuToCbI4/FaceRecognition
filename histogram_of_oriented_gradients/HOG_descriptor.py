@@ -16,9 +16,3 @@ class HOG_descriptor:
     def detect_face(self):
         self.descriptor.setSVMDetector(cv2.HOGDescriptor_getDefaultPeopleDetector())
         return self.descriptor.detectMultiScale(self.image, winStride=(4, 4), padding=(8, 8), scale=1.05)
-
-
-if __name__ == '__main__':
-    img = open_image('test3.jpg', greyscale=False)
-    hd = HOG_descriptor(img)
-    print(hd.detect_face())
