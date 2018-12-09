@@ -60,7 +60,7 @@ class OutputVideoHandler:
                     frame = self.frame_processing_function(frame)
                 # Avoid putting outdated frames. ###TODO: Improve condition
                 processing_time = time.time() - start_time
-                # writer.writerow([processing_time])
+                writer.writerow([processing_time])
                 if processing_time > self.timeout_on_frame and self.realtime_processing:
                     continue
                 self.output_queue.put_nowait((start_time, frame))

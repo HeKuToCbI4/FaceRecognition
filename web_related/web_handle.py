@@ -7,9 +7,9 @@ import cv2
 import numpy as np
 
 from haar_cascades.haar_classifier import HaarClassifier
+from image_processing.base_actions import draw_rectangle
 from limits import CWD
 from utils.output_video_stream_handler import OutputVideoHandler
-from image_processing.base_actions import draw_rectangle
 
 
 class web_handle:

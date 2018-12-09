@@ -1,8 +1,7 @@
-import pickle
 import socket
+
 import cv2
-import struct
-import base64
+
 from utils.input_video_stream_handler import InputVideoHandler
 
 if __name__ == '__main__':

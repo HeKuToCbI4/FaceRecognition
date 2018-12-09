@@ -1,7 +1,7 @@
 import cv2
 from flask import Flask, render_template, Response
 
-from detection_tests.web_handle import web_handle
+from web_related.web_handle import web_handle
 
 app = Flask(__name__)
 
