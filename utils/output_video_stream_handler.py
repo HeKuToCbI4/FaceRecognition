@@ -49,7 +49,7 @@ class OutputVideoHandler:
         while True:
             self.process_frames_event.wait()
             try:
-                next_frame = self.input_queue.get(block=True, timeout=1)
+                next_frame = self.input_queue.get(block=False, timeout=1)
             except queue.Empty:
                 logger.log_string('Warning: failed to get frame from input queue within 1 second.')
                 next_frame = None

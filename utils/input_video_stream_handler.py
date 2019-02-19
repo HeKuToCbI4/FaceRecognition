@@ -10,7 +10,7 @@ from utils.logger import Logger
 
 class InputVideoHandler:
     def __init__(self, name: str = 'BaseInputVideoHandler', video_source_device: int = None,
-                 video_source_file: str = None):
+                 video_source_file: str = None, fps: int = 24):
         """
         Creates object to handle video file/direct frames input from camera. If neither device/camera
         specified raises error.
@@ -19,6 +19,7 @@ class InputVideoHandler:
         :param name: Used for logging.
         :param video_source_deivce: index of source video device.
         :param video_source_file: name of input video file.
+        :param fps: frame rate of a file to prevent memory overload.
         """
         self.name = name
         if video_source_device is None and video_source_file is None:
@@ -30,6 +31,7 @@ class InputVideoHandler:
         self.capture_thread = Thread(target=self._start_capture)
         self.capture_thread.daemon = True
         self.capture_thread.start()
+        self.frames_per_second = fps
 
     def _start_capture(self):
         """
@@ -40,10 +42,12 @@ class InputVideoHandler:
         while True:
             self.capture_event.wait()
             while self.capture_event.is_set():
+                start_time = time.time()
                 read_result = self.capture.read()
                 ret, frame = read_result
                 if ret:
                     self.frame_queue.put_nowait((time.time, frame))
+                time.sleep(1 / self.frames_per_second + time.time() - start_time)
 
     def start_capture(self):
         """
